@@ -1,0 +1,9 @@
+Librerie utilizzate:
+
+- pandas
+- scipy
+- matplotlib
+- scikit-learn
+- pearson
+- pymysql
+- flask
