@@ -1,4 +1,19 @@
-Librerie utilizzate:
+Case study:
+
+
+The research group from the Department of Social Sciences is conducting a statistical survey to examine how demographic and professional variables influence the accumulated wealth of billionaires.
+After carrying out an exploratory analysis of the collected data, determine a possible correlation between:
+
+- The gender of billionaires and their industry sector (e.g., technology, finance, manufacturing).
+- The age of billionaires and their net worth (finalWorth), distinguishing between age groups (e.g., under 40, 40–60, over 60).
+
+Clearly outline the potential findings the research team might reach
+
+Dataset:
+
+- Billionaires Statistics Dataset 2023 (Kaggle.com)
+
+Libraries:
 
 - pandas
 - scipy
@@ -7,3 +22,4 @@ Librerie utilizzate:
 - pearson
 - pymysql
 - flask
+- cerberus
