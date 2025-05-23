@@ -1,3 +1,5 @@
+from cerberus import Validator
+
 class Billionaire:
 
     def __init__(self, id = None, patrimonio_finale = None, nome_persona = None, eta = None, paese = None, citta = None,
@@ -18,6 +20,87 @@ class Billionaire:
         self.stato = stato
         self.fascia_eta = fascia_eta
         self.codice_fascia_eta = codice_fascia_eta
+
+    schema_registrazione = {
+        "patrimonio_finale":
+            {
+                "required": True,
+                "type": "integer"
+
+            },
+        "nome_persona": {
+            "required": True,
+            "type": "string",
+            "regex": "^[a-zA-Zàéèìòù&\\s']{1,40}$"
+        },
+        "eta": {
+            "required": True,
+            "type": "integer",
+        },
+
+        "paese": {
+            "required": True,
+            "type": "string",
+            "regex": "^[a-zA-Zàéèìòù\\s']{1,24}$"
+        },
+        "citta": {
+            "required": True,
+            "type": "string",
+            "regex": "^[a-zA-Zàéèìòù\\s']{1,24}$"
+        },
+        "fonte_reddito": {
+            "required": True,
+            "type": "string",
+            "regex": "^[a-zA-Zàéèìòù\\s']{1,35}$"
+        },
+        "industrie": {
+            "required": True,
+            "type": "dict",
+            "schema": {
+                "industries": {
+                    "required": True,
+                    "type": "string",
+                    "regex": "^[a-zA-Zàéèìòù\\s']{1,26}$"
+                }
+            }
+        },
+        "paese_cittadinanza": {
+            "required": True,
+            "type": "string",
+            "regex": "^[a-zA-Zàéèìòù\\s']{1,20}$"
+        },
+        "organizzazione": {
+            "required": True,
+            "type": "string",
+            "regex": "^[a-zA-Zàéèìòù&\\s']{1,46}$"
+        },
+        "self_made": {
+            "required": True,
+            "type": "string",
+            "allowed": ["True", "False"]
+        },
+        "genere": {
+            "required": True,
+            "type": "integer",
+            "allowed": [1, 2]
+
+        },
+        "stato": {
+            "required": True,
+            "type": "string",
+            "regex": "^[a-zA-Zàéèìòù\\s']{1,19}$"
+        },
+        "fascia_eta": {
+            "required": True,
+            "type": "string",
+            "allowed": ["Over 60", "40-60", "Under 40"]
+        },
+        "codice_fascia_eta": {
+            "required": True,
+            "type": "integer",
+            "allowed": [0, 1, 2]
+        }
+    }
 
     @classmethod
     def deserializzazione(cls, json):
@@ -62,3 +145,12 @@ class Billionaire:
             "fonte_reddito": self.fonte_reddito,
             "citta": self.citta
         }
+
+    # metodo per validazione dati di registrazione
+    @classmethod
+    def validazione_registrazione(cls, json):
+        validatore = Validator(cls.schema_registrazione)
+        if validatore.validate(json):
+            return True
+        else:
+            return False, validatore.errors

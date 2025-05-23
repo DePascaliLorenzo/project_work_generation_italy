@@ -38,3 +38,15 @@ class Repository:
         except Exception as e:
             print(e)
             return "Errore Database"
+
+    # metodo generico per operazioni di manipolazione dati
+    def manipolazione(self, sql, valori):
+        try:
+            with self._get_connection() as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(sql, valori)
+                    connection.commit()
+                    return cursor.rowcount
+        except Exception as e:
+            print(e)
+            return None

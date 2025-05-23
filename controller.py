@@ -31,9 +31,18 @@ def endpoint_elenco_miliardari_u40_self_made_false(self_made):
 def endpoint_elenco_miliardari_per_fascia_eta(codice_fascia_eta):
     return miliardari_service.elenco_miliardari_per_fascia_eta(codice_fascia_eta)
 
-if __name__ == '__main__':
-    app.run()
+# endpoint registrazione miliardario
+# localhost:5000/miliardari/create
+@app.post('/miliardari/create')
+def endpoint_registrazione_miliardario():
+    corpo_richiesta = request.get_json()
+    return miliardari_service.aggiungere_miliardario(corpo_richiesta)
 
+# endpoint eliminazione miliardario
+# localhost:5000/miliardari/delete
+@app.delete('/miliardari/delete/<int:id>')
+def endpoint_elimina_miliardario(id):
+    return miliardari_service.eliminare_miliardario(id)
 
 if __name__ == '__main__':
     app.run()
